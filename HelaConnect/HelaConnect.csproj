@@ -6,4 +6,23 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\css\tailwind.css" />
+    <None Include="wwwroot\images\favicon.png" />
+    <None Include="wwwroot\images\icons\group-2.png" />
+    <None Include="wwwroot\images\icons\home.png" />
+    <None Include="wwwroot\images\icons\page.png" />
+    <None Include="wwwroot\images\icons\video.png" />
+    <None Include="wwwroot\images\logo.png" />
+    <None Include="wwwroot\js\script.js" />
+    <None Include="wwwroot\js\simplebar.js" />
+    <None Include="wwwroot\js\uikit.min.js" />
+    <None Include="wwwroot\syntax-highlighter\scripts\shBrushJScript.js" />
+    <None Include="wwwroot\syntax-highlighter\scripts\shBrushXml.js" />
+    <None Include="wwwroot\syntax-highlighter\scripts\shCore.js" />
+    <None Include="wwwroot\syntax-highlighter\styles\shCore.css" />
+    <None Include="wwwroot\syntax-highlighter\styles\shCoreMidnight.css" />
+  </ItemGroup>
+
 </Project>
