@@ -1,4 +1,4 @@
-using HelaConnect.Data;
+using HelaConnectApp.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +10,7 @@ builder.Services.AddControllersWithViews();
 //string dbConnectionString = builder.Configuration.GetConnectionString("Default");
 //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(dbConnectionString));
 
-string dbConnectionString = builder.Configuration.GetConnectionString("Connection1");
+var dbConnectionString = builder.Configuration.GetConnectionString("Connection1");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
 //options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
 
