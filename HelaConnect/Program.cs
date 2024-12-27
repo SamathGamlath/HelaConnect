@@ -1,4 +1,5 @@
-using HelaConnect.Data;
+using HelaConnectApp.Data;
+using HelaConnectApp.Data.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +11,21 @@ builder.Services.AddControllersWithViews();
 //string dbConnectionString = builder.Configuration.GetConnectionString("Default");
 //builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(dbConnectionString));
 
-string dbConnectionString = builder.Configuration.GetConnectionString("Connection1");
+var dbConnectionString = builder.Configuration.GetConnectionString("Connection1");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
 //options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
 
 var app = builder.Build();
+
+//Seed the database with initial data
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await dbContext.Database.MigrateAsync();
+    await DbInitializer.SeedAsync(dbContext);
+}
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
