@@ -21,7 +21,7 @@ namespace HelaConnect.Controllers
             var allPosts = await _context.Posts
                 .Include(n => n.User)
                 .ToListAsync();
-            return View();
+            return View(allPosts);
         }
 
     }
