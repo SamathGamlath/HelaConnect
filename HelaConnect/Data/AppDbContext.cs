@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HelaConnect.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelaConnect.Data
 {
@@ -8,5 +9,7 @@ namespace HelaConnect.Data
         {
             
         }
+
+        public DbSet<Post> Posts { get; set; }
     }
 }

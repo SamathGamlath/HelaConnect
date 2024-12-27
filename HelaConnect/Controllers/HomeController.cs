@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using HelaConnect.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HelaConnect.Controllers
