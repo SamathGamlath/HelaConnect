@@ -1,4 +1,5 @@
-﻿<div class="hidden lg:p-20" id="create-status" uk-modal="">
+﻿@model PostVM
+<div class="hidden lg:p-20" id="create-status" uk-modal="">
     <div class="uk-modal-dialog tt relative overflow-hidden mx-auto bg-white shadow-xl rounded-lg md:w-[520px] w-full">
         <div class="text-center py-4 border-b mb-0">
             <h2 class="text-sm font-medium text-black">Create Status</h2>
@@ -8,7 +9,8 @@
                 </svg>
             </button>
         </div>
-        <form>
+    @*     <form> *@
+            <form asp-controller="Home" asp-action="CreatePost">
             <div class="space-y-5 mt-3 p-2">
                 <textarea class="w-full !text-black placeholder:!text-black !bg-white !border-transparent focus:!border-transparent focus:!ring-transparent !font-normal !text-xl"
                           name="content"
