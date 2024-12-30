@@ -1,7 +1,8 @@
-﻿@model Post
+﻿﻿@model Post
 
-@{
+@{ 
     TimeSpan timeSpanSincePosted = DateTime.UtcNow.Subtract(Model.DateCreated);
+
     string displayTime = timeSpanSincePosted switch
     {
         var t when t.TotalDays >= 1 => $"{(int)t.TotalDays}d ago",
@@ -21,9 +22,7 @@
         <div class="flex-1">
             <a>
                 <h4 class="text-black">@Model.User.FullName</h4>
-                @* <div class="text-xs text-gray-500/80">@Model.DateCreated.ToString("MM/dd/yyyy HH:mm")</div> *@
                 <div class="text-xs text-gray-500/80" title="@Model.DateCreated.ToString("MM/dd/yyyy HH:mm")"> @displayTime </div>
-
             </a>
         </div>
 
@@ -77,40 +76,18 @@
     <div class="sm:p-4 p-2.5 flex items-center gap-4 text-xs font-semibold">
 
         <div class="flex items-center gap-2.5">
-
-
             <form asp-controller="Home" asp-action="TogglePostLike">
                 <input type="hidden" name="postId" value="@Model.Id" />
-
-
-
-
                 <button type="submit" class="button-icon @(Model.Likes.Any(n => n.UserId == 1) ? "text-red-500 bg-red-100" : "")">
-                    <ion-icon class="text-lg"
+                    <ion-icon class="text-lg" 
                               name="@(Model.Likes.Any(n => n.UserId == 1) ? "heart" : "heart-outline")"></ion-icon>
-
-
                 </button>
-
-
-
-
-
             </form>
-
-
-            @*             <a class="button-icon text-red-500 bg-red-100">
-                <ion-icon class="text-lg" name="heart"></ion-icon>
-            </a>
- *@
-
-            @* 
-            <a href="#">24</a> *@
-
-
+            
             <a href="#">@Model.Likes.Count</a>
-
         </div>
+
+
 
         <div class="flex items-center gap-3">
             <a class="button-icon">
@@ -129,17 +106,21 @@
     </div>
 
     @* Add comment section *@
-    <div>
+<div>
+    <form asp-controller="Home" asp-action="AddPostComment">
+
         <div class="sm:px-4 sm:py-3 p-2.5 border-t border-gray-100 flex items-center gap-1">
             <img src="~/images/avatar/user.png" class="w-6 h-6 rounded-full" />
 
+            <input type="hidden" name="postId" value="@Model.Id" />
             <div class="flex-1 relative overflow-hidden h-10">
-                <textarea placeholder="Add Comment...." rows="1" class="w-full resize-none !bg-transparent px-4 py-2 focus:!border-transparent focus:!ring-transparent"></textarea>
+                <textarea name="content" placeholder="Add Comment...."
+                          rows="1"
+                          class="w-full resize-none !bg-transparent px-4 py-2 focus:!border-transparent focus:!ring-transparent"></textarea>
             </div>
 
-            <button class="text-sm rounded-full py-1.5 px-3.5 bg-secondery">Comment</button>
-
+            <button type="submit" class="text-sm rounded-full py-1.5 px-3.5 bg-secondery">Comment</button>
         </div>
-    </div>
+    </form>
 </div>
-
+</div>
