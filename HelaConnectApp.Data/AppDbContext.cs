@@ -38,7 +38,7 @@ namespace HelaConnectApp.Data
                 .WithMany(u => u.Likes)
                 .HasForeignKey(l => l.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
-            base.OnModelCreating(modelBuilder);
+
 
             //Comments
             modelBuilder.Entity<Comment>()
@@ -52,6 +52,22 @@ namespace HelaConnectApp.Data
                 .HasForeignKey(l => l.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+
+            //Favorites
+            modelBuilder.Entity<Favorite>()
+                .HasKey(f => new { f.PostId, f.UserId });
+            modelBuilder.Entity<Favorite>()
+                .HasOne(f => f.Post)
+                .WithMany(p => p.Favorites)
+                .HasForeignKey(f => f.PostId)
+                .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Favorite>()
+                .HasOne(f => f.User)
+                .WithMany(u => u.Favorites)
+                .HasForeignKey(f => f.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            base.OnModelCreating(modelBuilder);
 
         }
     }
