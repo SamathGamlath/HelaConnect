@@ -52,28 +52,7 @@ namespace HelaConnect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("HelaConnectApp.Data.Models.Favorite", b =>
-                {
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Favorite");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.Like", b =>
@@ -91,7 +70,7 @@ namespace HelaConnect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Likes");
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.Post", b =>
@@ -125,7 +104,7 @@ namespace HelaConnect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.User", b =>
@@ -145,7 +124,7 @@ namespace HelaConnect.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.Comment", b =>
@@ -158,25 +137,6 @@ namespace HelaConnect.Migrations
 
                     b.HasOne("HelaConnectApp.Data.Models.User", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Post");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("HelaConnectApp.Data.Models.Favorite", b =>
-                {
-                    b.HasOne("HelaConnectApp.Data.Models.Post", "Post")
-                        .WithMany("Favorites")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("HelaConnectApp.Data.Models.User", "User")
-                        .WithMany("Favorites")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -220,16 +180,12 @@ namespace HelaConnect.Migrations
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("Favorites");
-
                     b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.User", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Favorites");
 
                     b.Navigation("Likes");
 
