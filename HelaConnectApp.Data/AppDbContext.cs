@@ -70,18 +70,18 @@ namespace HelaConnectApp.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             //Reports
-            modelBuilder.Entity<Report>()
-                .HasKey(f => new { f.PostId, f.UserId });
-            modelBuilder.Entity<Report>()
-                .HasOne(f => f.Post)
-                .WithMany(p => p.Reports)
-                .HasForeignKey(f => f.PostId)
-                .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Report>()
-                .HasOne(f => f.User)
-                .WithMany(u => u.Reports)
-                .HasForeignKey(f => f.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<Reports>()
+            //    .HasKey(f => new { f.PostId, f.UserId });
+            //modelBuilder.Entity<Reports>()
+            //    .HasOne(f => f.Post)
+            //    .WithMany(p => p.Reports)
+            //    .HasForeignKey(f => f.PostId)
+            //    .OnDelete(DeleteBehavior.NoAction);
+            //modelBuilder.Entity<Reports>()
+            //    .HasOne(f => f.User)
+            //    .WithMany(u => u.Reports)
+            //    .HasForeignKey(f => f.UserId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
 
