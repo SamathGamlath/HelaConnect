@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HelaConnect.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241230230215_Created_Reports_Entity")]
-    partial class Created_Reports_Entity
+    [Migration("20241230231835_Created_Report_Entity")]
+    partial class Created_Report_Entity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -134,7 +134,7 @@ namespace HelaConnect.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("HelaConnectApp.Data.Models.Report", b =>
+            modelBuilder.Entity("HelaConnectApp.Data.Models.Reports", b =>
                 {
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -152,7 +152,7 @@ namespace HelaConnect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Report");
+                    b.ToTable("Reports");
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.User", b =>
@@ -243,7 +243,7 @@ namespace HelaConnect.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("HelaConnectApp.Data.Models.Report", b =>
+            modelBuilder.Entity("HelaConnectApp.Data.Models.Reports", b =>
                 {
                     b.HasOne("HelaConnectApp.Data.Models.Post", "Post")
                         .WithMany("Reports")

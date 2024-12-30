@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HelaConnectApp.Data.Models
 {
-    public class Report
+    public class Reports
     {
         [Key]
         public int Id { get; set; }

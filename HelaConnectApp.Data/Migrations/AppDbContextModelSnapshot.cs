@@ -131,7 +131,7 @@ namespace HelaConnect.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("HelaConnectApp.Data.Models.Report", b =>
+            modelBuilder.Entity("HelaConnectApp.Data.Models.Reports", b =>
                 {
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -149,7 +149,7 @@ namespace HelaConnect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Report");
+                    b.ToTable("Reports");
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.User", b =>
@@ -240,7 +240,7 @@ namespace HelaConnect.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("HelaConnectApp.Data.Models.Report", b =>
+            modelBuilder.Entity("HelaConnectApp.Data.Models.Reports", b =>
                 {
                     b.HasOne("HelaConnectApp.Data.Models.Post", "Post")
                         .WithMany("Reports")

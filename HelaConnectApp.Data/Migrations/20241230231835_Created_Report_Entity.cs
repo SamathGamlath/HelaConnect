@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HelaConnect.Migrations
 {
     /// <inheritdoc />
-    public partial class Created_Reports_Entity : Migration
+    public partial class Created_Report_Entity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Report",
+                name: "Reports",
                 columns: table => new
                 {
                     PostId = table.Column<int>(type: "int", nullable: false),
@@ -22,14 +22,14 @@ namespace HelaConnect.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Report", x => new { x.PostId, x.UserId });
+                    table.PrimaryKey("PK_Reports", x => new { x.PostId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_Report_Posts_PostId",
+                        name: "FK_Reports_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Report_Users_UserId",
+                        name: "FK_Reports_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -38,8 +38,8 @@ namespace HelaConnect.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Report_UserId",
-                table: "Report",
+                name: "IX_Reports_UserId",
+                table: "Reports",
                 column: "UserId");
         }
 
@@ -47,7 +47,7 @@ namespace HelaConnect.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Report");
+                name: "Reports");
         }
     }
 }
