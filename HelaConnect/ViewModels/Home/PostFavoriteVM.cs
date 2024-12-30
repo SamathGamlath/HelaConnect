@@ -1,6 +1,6 @@
 ﻿namespace HelaConnect.ViewModels.Home
 {
-    public class FavoriteVM
+    public class PostFavoriteVM
     {
         public int PostId { get; set; }
     }

@@ -24,6 +24,7 @@ namespace HelaConnect.Controllers
             var allPosts = await _context.Posts
                 .Include(n => n.User)
                 .Include(n => n.Likes)
+                .Include(n => n.Favorites)
                 .Include(n => n.Comments).ThenInclude(n => n.User)
                 .OrderByDescending(n => n.DateCreated)
                 .ToListAsync();
