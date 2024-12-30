@@ -173,21 +173,21 @@ namespace HelaConnect.Controllers
         }
 
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddPostReport(PostReportVM postReportVM)
-        //{
-        //    int loggedInUserId = 1;
-        //    //Creat a post object
-        //    var newReport = new Reports()
-        //    {
-        //        UserId = loggedInUserId,
-        //        PostId = postReportVM.PostId,
-        //        DateCreated = DateTime.UtcNow,
-        //    };
-        //    await _context.Reports.AddAsync(newReport);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost]
+        public async Task<IActionResult> AddPostReport(PostReportVM postReportVM)
+        {
+            int loggedInUserId = 1;
+            //Creat a post object
+            var newReport = new Report()
+            {
+                UserId = loggedInUserId,
+                PostId = postReportVM.PostId,
+                DateCreated = DateTime.UtcNow,
+            };
+            await _context.Reports.AddAsync(newReport);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
 
 
         [HttpPost]

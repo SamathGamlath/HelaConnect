@@ -52,7 +52,7 @@ namespace HelaConnect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.Favorite", b =>
@@ -73,7 +73,7 @@ namespace HelaConnect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Favorites");
+                    b.ToTable("Favorites", (string)null);
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.Like", b =>
@@ -91,7 +91,7 @@ namespace HelaConnect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Likes");
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.Post", b =>
@@ -128,28 +128,7 @@ namespace HelaConnect.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("HelaConnectApp.Data.Models.Reports", b =>
-                {
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Reports");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.User", b =>
@@ -169,7 +148,7 @@ namespace HelaConnect.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.Comment", b =>
@@ -240,25 +219,6 @@ namespace HelaConnect.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("HelaConnectApp.Data.Models.Reports", b =>
-                {
-                    b.HasOne("HelaConnectApp.Data.Models.Post", "Post")
-                        .WithMany("Reports")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("HelaConnectApp.Data.Models.User", "User")
-                        .WithMany("Reports")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Post");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("HelaConnectApp.Data.Models.Post", b =>
                 {
                     b.Navigation("Comments");
@@ -266,8 +226,6 @@ namespace HelaConnect.Migrations
                     b.Navigation("Favorites");
 
                     b.Navigation("Likes");
-
-                    b.Navigation("Reports");
                 });
 
             modelBuilder.Entity("HelaConnectApp.Data.Models.User", b =>
@@ -279,8 +237,6 @@ namespace HelaConnect.Migrations
                     b.Navigation("Likes");
 
                     b.Navigation("Posts");
-
-                    b.Navigation("Reports");
                 });
 #pragma warning restore 612, 618
         }
