@@ -17,7 +17,7 @@ namespace HelaConnect.Controllers
 
         public HomeController(ILogger<HomeController> logger, AppDbContext context)
         {
-            _logger = logger;
+            _logger = 1logger;
             _context = context;
         }
 
