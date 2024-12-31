@@ -76,13 +76,10 @@
                 }
                 else
                 {
-
                     @foreach (var post in Model)
                     {
                         <partial name="Home/_Post" model="post" />
                     }
-
-
                 }
 
 
@@ -92,17 +89,27 @@
         <div class="flex-1">
             <div class="lg:space-y-4 lg:pb-8 max-lg:grid sm:grid-cols-2 max-lg:gap-6">
                 <div class="box p-5 px-6">
-                    <partial name="Sidebar/_SuggestedFriends"></partial>
+                    <partial name="Sidebar/_SuggestedFriends" />
                 </div>
                 <div class="box p-5 px-6 border1">
-                    <partial name="Sidebar/_TrendsForYou"></partial>
+                    <partial name="Sidebar/_TrendsForYou" />
                 </div>
             </div>
         </div>
     </div>
 </main>
 
-<partial name="Modals/_CreateStory"/>
-<partial name="Modals/_CreateStatus" model="new PostVM()"></partial>
+<partial name="Modals/_CreateStory" />
+<partial name="Modals/_CreateStatus" model="new PostVM()" />
+<partial name="Home/_PostDeleteConfirmation" />
+
+<script>
+    function openPostDeleteConfirmation(postId) {
+        UIkit.dropdown('.post-options-dropdown').hide();
+        document.getElementById('deleteConfirmationPostId').value = postId;
+        UIkit.modal('#postDeleteDialog').show();
+    }
+</script>
+
 @* <partial name="Modals/_CreateStatus"/> *@
 @* <partial name="Modals/_CreateStatus"></partial> *@
