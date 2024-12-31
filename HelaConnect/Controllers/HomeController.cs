@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using HelaConnect.ViewModels.Home;
 using HelaConnectApp.Data;
+using HelaConnectApp.Data.Helpers;
 using HelaConnectApp.Data.Models;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
@@ -77,9 +78,36 @@ namespace HelaConnect.Controllers
             await _context.Posts.AddAsync(newPost);
             await _context.SaveChangesAsync();
 
+            //Find and store hashtags
+            var postHashtags = HashtagHelper.GetHashtags(post.Content);
+            foreach (var hashTag in postHashtags)
+            {
+                var hashtagDb = await _context.Hashtags.FirstOrDefaultAsync(n => n.Name == hashTag);
+                if (hashtagDb != null)
+                {
+                    hashtagDb.Count += 1;
+                    hashtagDb.DateUpdated = DateTime.UtcNow;
+                    _context.Hashtags.Update(hashtagDb);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    var newHashtag = new Hashtag()
+                    {
+                        Name = hashTag,
+                        Count = 1,
+                        DateCreated = DateTime.UtcNow,
+                        DateUpdated = DateTime.UtcNow
+                    };
+                    await _context.Hashtags.AddAsync(newHashtag);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
             //Redirect to the index page
             return RedirectToAction("Index");
         }
+
 
 
         [HttpPost]
@@ -120,6 +148,20 @@ namespace HelaConnect.Controllers
                 postDb.IsDeleted = true;
                 _context.Posts.Update(postDb);
                 await _context.SaveChangesAsync();
+
+                //Update hashtags
+                var postHashtags = HashtagHelper.GetHashtags(postDb.Content);
+                foreach (var hashtag in postHashtags)
+                {
+                    var hashtagDb = await _context.Hashtags.FirstOrDefaultAsync(n => n.Name == hashtag);
+                    if (hashtagDb != null)
+                    {
+                        hashtagDb.Count -= 1;
+                        hashtagDb.DateUpdated = DateTime.UtcNow;
+                        _context.Hashtags.Update(hashtagDb);
+                        await _context.SaveChangesAsync();
+                    }
+                }
             }
             return RedirectToAction("Index");
         }

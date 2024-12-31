@@ -1,9 +1,10 @@
 ﻿using HelaConnectApp.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelaConnect.ViewComponents
 {
-    public class StoriesViewComponents : ViewComponent
+    public class StoriesViewComponent : ViewComponent
     {
 
         private readonly AppDbContext _context;
@@ -11,10 +12,17 @@ namespace HelaConnect.ViewComponents
         {
             _context = context;
         }
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var allStories = await _context.Stories.Include(s => s.User).ToListAsync();
+            var allStories = await _context.Stories
+                .Where(n => n.DateCreated >= DateTime.UtcNow.AddHours(-24))
+                .Include(s => s.User)
+                .ToListAsync();
+
             return View(allStories);
         }
+
+
     }
 }
