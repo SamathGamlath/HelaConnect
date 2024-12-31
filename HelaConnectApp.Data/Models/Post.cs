@@ -6,7 +6,7 @@ namespace HelaConnectApp.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Content { get; set; }
+        public string? Content { get; set; }
         public string? ImageUrl { get; set; }
         public int NrOfReports { get; set; }
         public bool IsPrivate { get; set; }
