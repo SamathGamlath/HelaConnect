@@ -23,7 +23,7 @@ namespace HelaConnect.Controllers
         {
             int loggedInUserId = 1;
             var allPosts = await _context.Posts
-                .Where(n => (!n.IsPrivate || n.UserId == loggedInUserId) && n.Reports.Count < 5)
+                .Where(n => (!n.IsPrivate || n.UserId == loggedInUserId) && n.Reports.Count < 5 && !n.IsDeleted)
                 .Include(n => n.User)
                 .Include(n => n.Likes)
                 .Include(n => n.Favorites)
@@ -116,7 +116,8 @@ namespace HelaConnect.Controllers
             var postDb = await _context.Posts.FirstOrDefaultAsync(c => c.Id == postRemoveVM.PostId);
             if (postDb != null)
             {
-                _context.Posts.Remove(postDb);
+                postDb.IsDeleted = true;
+                _context.Posts.Update(postDb);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("Index");
