@@ -14,12 +14,13 @@ namespace HelaConnectApp.Data.Models
         public DateTime DateUpdated { get; set; }
         public bool IsDeleted { get; set; }
 
+  
 
         //Foreign Key
         public int UserId { get; set; }
 
         //Navigation Properties
-        public User User { get; set; }
+        public User? User { get; set; }
         public ICollection<Like> Likes { get; set; } = new List<Like>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
