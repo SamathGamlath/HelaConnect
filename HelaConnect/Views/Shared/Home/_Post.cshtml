@@ -48,6 +48,7 @@
                     <button type="button" onclick="openPostDeleteConfirmation('@Model.Id')" class="text-red-400 hover:!bg-red-50 delete-post-btn">
                         <ion-icon name="trash-bin-outline"></ion-icon>  Delete Post
                     </button>
+                    <a class="btn-primary" asp-action="EditStatus" asp-route-id="@Model.Id">Edit</a>
                 }
 
                 @if (!isReported)

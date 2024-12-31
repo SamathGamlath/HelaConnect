@@ -2,6 +2,7 @@ using System.Diagnostics;
 using HelaConnect.ViewModels.Home;
 using HelaConnectApp.Data;
 using HelaConnectApp.Data.Models;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -218,5 +219,58 @@ namespace HelaConnect.Controllers
             return RedirectToAction("Index");
         }
 
+
+        // Edit
+
+        public async Task<IActionResult> EditStatus(int id)
+        {
+            var postDetails = await _context.Posts.FindAsync(id);
+            if (postDetails == null) return View("NotFound");
+            return View(postDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditStatus(int id, [Bind("Id,Content,ImageUrl,NrOfReports,IsPrivate,DateCreated,DateUpdated,IsDeleted,UserId,User")] Post post)
+        {
+            int loggedInUserId = 1;
+            post.UserId = loggedInUserId;
+            
+            
+
+       
+
+            // Retrieve the existing post from the database by its ID
+            var existingPost = await _context.Posts.FindAsync(id);
+            if (existingPost == null)
+            {
+                // Handle the case where the post was not found
+                return NotFound();
+            }
+
+            existingPost.Content = post.Content;
+            existingPost.ImageUrl = post.ImageUrl;
+            existingPost.NrOfReports = post.NrOfReports;
+            existingPost.IsPrivate = post.IsPrivate;
+            existingPost.DateCreated = DateTime.Now;
+            existingPost.DateUpdated = DateTime.Now;  // Update to the current date and time
+            existingPost.IsDeleted = post.IsDeleted;
+            existingPost.UserId = post.UserId;
+            existingPost.User = post.User;
+
+            // Step 3: Mark the entity as modified
+            _context.Entry(existingPost).State = EntityState.Modified;
+
+
+
+            if (!ModelState.IsValid)
+            {
+                return View(post);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+            
+        }
+
     }
 }
+
