@@ -111,6 +111,18 @@ namespace HelaConnect.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> PostRemove(PostRemoveVM postRemoveVM)
+        {
+            var postDb = await _context.Posts.FirstOrDefaultAsync(c => c.Id == postRemoveVM.PostId);
+            if (postDb != null)
+            {
+                _context.Posts.Remove(postDb);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
         public async Task<IActionResult> TogglePostFavorite(PostFavoriteVM postFavoriteVM)
         {
             int loggedInUserId = 1;
