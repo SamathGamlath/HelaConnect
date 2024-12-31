@@ -1,4 +1,4 @@
-﻿namespace HelaConnect.ViewModels.Home
+﻿namespace HelaConnect.ViewModels.Stories
 {
     public class StoryVM
     {

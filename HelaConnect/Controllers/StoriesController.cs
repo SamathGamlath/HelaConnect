@@ -1,6 +1,8 @@
 ﻿using HelaConnectApp.Data.Models;
 using HelaConnectApp.Data;
 using Microsoft.AspNetCore.Mvc;
+using HelaConnect.ViewModels.Stories;
+using Microsoft.EntityFrameworkCore;
 
 namespace HelaConnect.Controllers
 {
@@ -11,9 +13,10 @@ namespace HelaConnect.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task <IActionResult> Index()
         {
-            return View();
+            var allStories = await _context.Stories.Include(s => s.User).ToListAsync();
+            return View(allStories);
         }
         [HttpPost]
         public async Task<IActionResult> CreateStory(StoryVM storyVM)
