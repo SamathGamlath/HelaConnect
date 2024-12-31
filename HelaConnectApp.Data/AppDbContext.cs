@@ -17,6 +17,7 @@ namespace HelaConnectApp.Data
 
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<Story> Stories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +42,11 @@ namespace HelaConnectApp.Data
                 .WithMany(u => u.Likes)
                 .HasForeignKey(l => l.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<User>()
+             .HasMany(u => u.Stories)
+             .WithOne(p => p.User)
+             .HasForeignKey(p => p.UserId);
 
 
             //Comments
