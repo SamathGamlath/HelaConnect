@@ -19,5 +19,5 @@ services:
     environment:  
       MYSQL_ROOT_PASSWORD: rootpassword  
       MYSQL_DATABASE: helaconnectappdb  
-      MYSQL_USER: root  
-      MYSQL_PASSWORD: Samath@1234?
+      MYSQL_USER: appuser  
+      MYSQL_PASSWORD: appuserpassword
