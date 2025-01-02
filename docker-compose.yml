@@ -1,33 +1,30 @@
-﻿version: '3.4'
-
-services:
-  webapp:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8000:80"
-    depends_on:
-      db:
-        condition: service_healthy  # Ensure db is healthy before starting webapp
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db;Port=3306;Database=helaconnectappdb;User=appuser;Password=appuserpassword;
-
+﻿services:
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile.db
-    ports:
-      - "3307:3306"
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: helaconnectappdb
       MYSQL_USER: appuser
       MYSQL_PASSWORD: appuserpassword
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      retries: 5
-      start_period: 20s
-      timeout: 10s
+    ports:
+      - "3306:3306"
+    networks:
+      - helaconnect-network
+
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Port=3306;Database=helaconnectappdb;User=appuser;Password=appuserpassword
+    depends_on:
+      - db
+    ports:
+      - "5000:80"
+    networks:
+      - helaconnect-network
+
+networks:
+  helaconnect-network:
+    driver: bridge
