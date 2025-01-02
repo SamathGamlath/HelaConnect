@@ -1,0 +1,6 @@
+FROM mysql:8.0.40  
+ENV MYSQL_ROOT_PASSWORD=rootpassword  
+ENV MYSQL_DATABASE=helaconnectappdb  
+ENV MYSQL_USER=root  
+ENV MYSQL_PASSWORD=Samath@1234?
+EXPOSE 3306
