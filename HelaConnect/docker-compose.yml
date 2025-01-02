@@ -1,0 +1,23 @@
+﻿version: '3.4'  
+
+services:  
+  webapp:  
+    build:  
+      context: .  
+      dockerfile: Dockerfile  
+    ports:  
+      - "8000:80"  
+    depends_on:  
+      - db  
+
+  db:  
+    build:  
+      context: .  
+      dockerfile: Dockerfile.db  
+    ports:  
+      - "3307:3306"  
+    environment:  
+      MYSQL_ROOT_PASSWORD: rootpassword  
+      MYSQL_DATABASE: helaconnectappdb  
+      MYSQL_USER: root  
+      MYSQL_PASSWORD: Samath@1234?
