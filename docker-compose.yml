@@ -1,4 +1,17 @@
 ﻿services:
+  webapp:
+    image: samathgamlath1111/helaconnectwebappimg:1.0.0
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Port=3306;Database=helaconnectappdb;User=appuser;Password=appuserpassword
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5000:8080"
+    networks:
+      - helaconnect-network
+
   db:
     image: mysql:8.0
     environment:
@@ -17,19 +30,6 @@
       interval: 10s
       retries: 5
       timeout: 5s
-
-  webapp:
-    image: samathgamlath1111/helaconnetwebappimg:1.0
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db;Port=3306;Database=helaconnectappdb;User=appuser;Password=appuserpassword
-    depends_on:
-      db:
-        condition: service_healthy
-    ports:
-      - "5000:80"
-    networks:
-      - helaconnect-network
 
 networks:
   helaconnect-network:
