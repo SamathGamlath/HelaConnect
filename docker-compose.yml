@@ -7,19 +7,25 @@
       MYSQL_USER: appuser
       MYSQL_PASSWORD: appuserpassword
     ports:
-      - "3306:3306"
+      - "3307:3306"
     networks:
       - helaconnect-network
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
 
   webapp:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: samathgamlath1111/helaconnetwebappimg:1.0
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=db;Port=3306;Database=helaconnectappdb;User=appuser;Password=appuserpassword
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
       - "5000:80"
     networks:
@@ -28,3 +34,6 @@
 networks:
   helaconnect-network:
     driver: bridge
+
+volumes:
+  db-data:
